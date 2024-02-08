@@ -1,0 +1,24 @@
+{
+  "name": "api-ims",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "source/server/api-ims/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "api-ims:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "api-ims:build:development"
+        },
+        "production": {
+          "buildTarget": "api-ims:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

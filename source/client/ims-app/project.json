@@ -1,0 +1,8 @@
+{
+  "name": "ims-app",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "source/client/ims-app/src",
+  "projectType": "application",
+  "targets": {},
+  "tags": []
+}

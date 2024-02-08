@@ -1,0 +1,91 @@
+.side-nav-text {
+  font-size: 16px;
+  font: normal normal medium 16px/20px Inter;
+}
+
+.header-bg {
+  background: transparent linear-gradient(90deg, #315b81 0%, #003463 100%) 0% 0%
+    no-repeat padding-box !important;
+}
+
+.header-dropdown-bg .ant-select-selector {
+  background-color: #315b81 !important;
+}
+
+.header-dropdown-bg .ant-select-selection-placeholder {
+  color: #ffffff !important;
+}
+
+.header-dropdown-bg .ant-select-selection-placeholder .ant-select-arrow {
+  color: #ffffff !important;
+}
+
+.header-dropdown-bg .ant-select-arrow {
+  color: #ffffff !important;
+}
+
+.header-dropdown-bg .ant-select-selection-item {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+.header-dropdown-bg {
+  min-width: 13rem;
+}
+
+
+.header-input-search {
+  height: 50%;
+  width: 55% !important;
+  margin: auto !important;
+  background: #041e36 !important;
+}
+
+[data-icon='user'] {
+  height: 21px;
+  width: 21px;
+}
+
+[data-icon='home'] {
+  height: 21px;
+  width: 21px;
+}
+
+[data-icon='home'] {
+  height: 21px;
+  width: 21px;
+}
+
+[data-icon='team'] {
+  height: 21px;
+  width: 21px;
+}
+
+[data-icon='profile'] {
+  height: 21px;
+  width: 21px;
+}
+
+[data-icon='container'] {
+  height: 21px;
+  width: 21px;
+}
+
+[data-icon='folder-open'] {
+  height: 21px;
+  width: 21px;
+}
+
+[data-icon='fund'] {
+  height: 21px;
+  width: 21px;
+}
+
+.custom-header-drop-down-btn {
+  background: #0b3d6a !important;
+  color: #ffffff;
+  height: 40px;
+  width: 193px;
+}
+.width-adjustment{
+  width: calc(100%) !important
+}
