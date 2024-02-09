@@ -17,18 +17,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleLogin = async () => {
-    dispatch({ type: 'LOGIN' });
 
     setLoading(true);
     try {
       const response = await axios.post('http://localhost:3333/api/users/login', { username, password });
+      console.log('1')
+      navigate('/home/dashboard');
       const token = response.data.token;
       localStorage.setItem('token', token);
       message.success('Login successful');
-      navigate('/home/dashboard');
+      console.log('2')
     } catch (error: any) {
       setError(error.response?.data?.message || 'An error occurred');
     } finally {

@@ -5,9 +5,14 @@ const { join } = require('path');
 module.exports = {
   output: {
     path: join(__dirname, '../../../dist/source/client/ims-app'),
+    publicPath: '/'
+
   },
   devServer: {
     port: 4200,
+    historyApiFallback: true,
+
+    
 },
   plugins: [
     new NxWebpackPlugin({

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import LoginForm from './login';
 import SignupForm from './signup';
 
-const Index = () => {
+const CombineModule = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
 
   const toggleForm = () => {
@@ -22,4 +22,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default CombineModule;
