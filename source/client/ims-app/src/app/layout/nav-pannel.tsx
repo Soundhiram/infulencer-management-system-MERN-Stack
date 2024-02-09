@@ -1,13 +1,13 @@
 import { Drawer, Menu } from 'antd';
 import { useState } from 'react';
 
-export const NavPanel = () => {
-    const [visible,setVisible] = useState<boolean>(false)
-    
+export const NavPanel: React.FC = () => {
+  const [visible, setVisible] = useState<boolean>(false);
+
   return (
-    <>
+    <div style={{ position: 'fixed', bottom: 0, width: '100%' }}>
       <Menu mode="horizontal">
-        <Menu.Item onClick={()=>setVisible(true)}>
+        <Menu.Item onClick={() => setVisible(true)}>
           {/* <SettingOutlined className="nav-icon mr-0" /> */}
         </Menu.Item>
       </Menu>
@@ -15,11 +15,12 @@ export const NavPanel = () => {
         title="Theme Config"
         placement="right"
         width={350}
-        onClose={()=>setVisible(false)}
+        onClose={() => setVisible(false)}
         visible={visible}
       >
         {/* <ThemeConfigurator /> */}
       </Drawer>
-    </>
+    </div>
   );
 };
+

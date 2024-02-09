@@ -1,12 +1,15 @@
 import './style.css';
 import { useState } from 'react';
-import { Menu, Button, Dropdown, Modal, MenuProps } from 'antd';
+import { Menu, Button, Dropdown, MenuProps } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from './component/icon';
 import {
   DashboardOutlined,
   UserOutlined,
   DownOutlined,
+  UnorderedListOutlined,
+  FormOutlined,
+  LogoutOutlined, // Import LogoutOutlined
 } from '@ant-design/icons';
 import { logout } from '../store/actions/authActions';
 import { RoutingConstraints } from '../route/constraints';
@@ -24,15 +27,14 @@ export const MenuContent: React.FC<MenuContentProps> = ({ type }) => {
   const handleSignOut = () => {
     try {
       localStorage.removeItem('token');
-
       dispatch(logout());
-
       navigate('/login');
       console.log('Redirected to login page');
     } catch (error) {
       console.error('Logout failed:', error);
     }
   };
+
   const items: MenuProps['items'] = [
     {
       key: 'logout',
@@ -45,11 +47,7 @@ export const MenuContent: React.FC<MenuContentProps> = ({ type }) => {
   ];
 
   return (
-    <Menu
-      theme="light"
-      mode="inline"
-      style={{ height: '100%' }}
-    >
+    <Menu theme="light" mode="inline" style={{ height: '100%' }}>
       <Menu.Item key="dashboard" style={{ paddingLeft: '35px' }}>
         <Link to="/home/dashboard" className="icon-primary width-adjustment">
           <>
@@ -62,44 +60,28 @@ export const MenuContent: React.FC<MenuContentProps> = ({ type }) => {
       <Menu.Item key="form" style={{ paddingLeft: '35px' }}>
         <Link to="/home/influencerform" className="icon-primary width-adjustment">
           <>
-            <Icon type={UserOutlined} className="icon-primary" />
+            <Icon type={FormOutlined} className="icon-primary" />
             <span className="color-primary side-nav-text">Influencer-Form</span>
           </>
         </Link>
       </Menu.Item>
-     <Menu.Item key="list" style={{paddingLeft:'35px'}}>
-        <Link to="/home/influencerlist" className='icon-primary width-adjustment'>
-        <>
-        <Icon type={UserOutlined} className="icon-primary" />
-        <span className="color-primary side-nav-text">Influencer-List</span>
-        </>
-        
-        </Link>
-     </Menu.Item>
 
-      <Menu
-        theme={'light'}
-        mode="inline"
-        style={{ position: 'absolute' }}
-        defaultSelectedKeys={[]}
-        className={'hide-group-title'}
-      >
-        <Menu.Item key={'menuItem'}>
-          <Button
-            type="default"
-            className="custom-sideNav-user-button mr-3"
-            style={{ width: '3px' }}
-          >
-            A
-          </Button>
-          <Dropdown menu={{ items }}>
-            <span onClick={(e) => e.preventDefault()}>
-              <span className="color-primary side-nav-text">Employee</span>
-              <DownOutlined />
-            </span>
-          </Dropdown>
-        </Menu.Item>
-      </Menu>
+      <Menu.Item key="list" style={{ paddingLeft: '35px' }}>
+        <Link to="/home/influencerlist" className="icon-primary width-adjustment">
+          <>
+            <Icon type={UnorderedListOutlined} className="icon-primary" />
+            <span className="color-primary side-nav-text">Influencer-List</span>
+          </>
+        </Link>
+      </Menu.Item>
+
+      {/* Logout option */}
+      <Menu.Item key="logout" style={{ paddingLeft: '35px' }}>
+        <Icon type={LogoutOutlined} className="icon-primary" />
+        <span className="color-primary side-nav-text" onClick={handleSignOut}>
+          Logout
+        </span>
+      </Menu.Item>
     </Menu>
   );
 };

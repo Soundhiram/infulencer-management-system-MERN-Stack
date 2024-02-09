@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Layout } from 'antd';
 
 const { Header } = Layout;
+
 interface HeaderNavProps {
   isMobile: boolean;
   navCollapsed: boolean;
@@ -33,7 +34,16 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
   };
 
   return (
-    <Header className={`app-header header-bg ${navMode}`}>
+    <Header
+      className={`app-header header-bg ${navMode}`}
+      style={{
+        position: 'fixed',
+        zIndex: 1,
+        width: '100%',
+        marginLeft: '-8px',
+        marginTop:'-10px'
+      }}
+    >
       <div className={`app-header-wrapper ${isNavTop ? 'layout-top-nav' : ''}`}>
         <div className="nav" style={{ width: `calc(100% - ${getNavWidth()})` }}>
           <div className="nav-left">

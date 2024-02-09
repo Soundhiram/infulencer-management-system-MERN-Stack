@@ -1,4 +1,4 @@
-import { Layout, MenuProps } from 'antd';
+import { Layout } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Footer } from './footer';
@@ -10,39 +10,40 @@ const { Header, Sider, Content } = Layout;
 export const AppLayout: React.FC = () => {
   const [navCollapsed, setNavCollapsed] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const onClick: MenuProps['onClick'] = (e) => {
-    console.log('click', e);
-  };
+
+  // useEffect to update isMobile state
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // Update breakpoint as needed
+    };
+    handleResize(); // Initial check
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const getLayoutGutter = () => {
-    if (isMobile) {
-      return 0;
-    }
-    return navCollapsed ? '80' : '250';
+    return isMobile || navCollapsed ? 100 : 265;
   };
+
   return (
-    <Layout>
-      <HeaderNav
-        isMobile={isMobile}
-        navCollapsed={navCollapsed}
-        setNavCollapsed={setNavCollapsed}
-      />
-      {/* {(isNavTop && !isMobile) ? <TopNav routeInfo={currentRouteInfo}/> : null} */}
-      <Layout className="app-container">
-        {!isMobile ? <SideNav navCollapsed={navCollapsed} /> : null}
-        <Layout
-          className="app-layout "
-          style={{ paddingLeft: `${getLayoutGutter()}px` }}
-        >
-          <div className={`app-content app-content-layout`}>
-            <Content>
+    <Layout style={{ minHeight: '100vh' }}>
+        <HeaderNav
+          isMobile={isMobile}
+          navCollapsed={navCollapsed}
+          setNavCollapsed={setNavCollapsed}
+        />
+      <Layout>
+      {!isMobile ? <SideNav navCollapsed={navCollapsed} /> : null}
+
+        <Layout style={{ marginLeft: getLayoutGutter(), transition: 'margin-left 0.2s',marginTop:'65px',marginRight:'15px' }}>
+          <Content >
+            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
               <Outlet />
-            </Content>
-          </div>
-          <Footer />
+            </div>
+          </Content>
         </Layout>
       </Layout>
-      {/* {isMobile && <MobileNav />} */}
     </Layout>
   );
 };
+
