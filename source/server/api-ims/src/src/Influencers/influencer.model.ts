@@ -9,15 +9,17 @@ interface Influencer extends Document {
   contactInformation: string;
   notes?: string;
   profileImageUrl?: string;
+  archived:boolean;
 }
 
 const influencerSchema = new Schema<Influencer>({
-  name: { type: String, required: true },
+  archived:{type: Boolean, default: false},
+  name: { type: String },
   socialMediaHandles: [String],
-  followers: { type: Number, required: true },
-  engagementRate: { type: Number, required: true },
-  category: { type: String, required: true },
-  contactInformation: { type: String, required: true },
+  followers: { type: Number },
+  engagementRate: { type: Number },
+  category: { type: String },
+  contactInformation: { type: String },
   notes: String,
   profileImageUrl: String,
 });

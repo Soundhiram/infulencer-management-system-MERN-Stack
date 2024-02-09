@@ -3,11 +3,14 @@ import { useState } from 'react';
 import { Menu, Button, Dropdown, Modal, MenuProps } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from './component/icon';
-import { DashboardOutlined, UserOutlined,DownOutlined } from '@ant-design/icons';
+import {
+  DashboardOutlined,
+  UserOutlined,
+  DownOutlined,
+} from '@ant-design/icons';
 import { logout } from '../store/actions/authActions';
 import { RoutingConstraints } from '../route/constraints';
 import { useDispatch } from 'react-redux';
-
 
 interface MenuContentProps {
   type: string;
@@ -18,21 +21,12 @@ export const MenuContent: React.FC<MenuContentProps> = ({ type }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
   const handleSignOut = () => {
-    // const dispatch = useDispatch();
-    // const navigate = useNavigate();
-  
     try {
-      // Remove JWT token from local storage
       localStorage.removeItem('token');
-      console.log('JWT token removed from local storage');
-  
-      // Dispatch logout action
+
       dispatch(logout());
-      console.log('Logout action dispatched');
-  
-      // Redirect to the login page
+
       navigate('/login');
       console.log('Redirected to login page');
     } catch (error) {
@@ -54,7 +48,7 @@ export const MenuContent: React.FC<MenuContentProps> = ({ type }) => {
     <Menu
       theme="light"
       mode="inline"
-      style={{ height: '100%', borderRight: 0 }}
+      style={{ height: '100%' }}
     >
       <Menu.Item key="dashboard" style={{ paddingLeft: '35px' }}>
         <Link to="/home/dashboard" className="icon-primary width-adjustment">
@@ -64,23 +58,29 @@ export const MenuContent: React.FC<MenuContentProps> = ({ type }) => {
           </>
         </Link>
       </Menu.Item>
-      {/* Add other menu items here */}
 
       <Menu.Item key="form" style={{ paddingLeft: '35px' }}>
-        <Link to="/home/form" className="icon-primary">
+        <Link to="/home/influencerform" className="icon-primary width-adjustment">
           <>
             <Icon type={UserOutlined} className="icon-primary" />
             <span className="color-primary side-nav-text">Influencer-Form</span>
           </>
         </Link>
       </Menu.Item>
-
-      {/* Add more menu items as needed */}
+     <Menu.Item key="list" style={{paddingLeft:'35px'}}>
+        <Link to="/home/influencerlist" className='icon-primary width-adjustment'>
+        <>
+        <Icon type={UserOutlined} className="icon-primary" />
+        <span className="color-primary side-nav-text">Influencer-List</span>
+        </>
+        
+        </Link>
+     </Menu.Item>
 
       <Menu
         theme={'light'}
         mode="inline"
-        style={{ position: 'absolute', bottom: 0 }}
+        style={{ position: 'absolute' }}
         defaultSelectedKeys={[]}
         className={'hide-group-title'}
       >

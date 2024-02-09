@@ -89,3 +89,6 @@
 .width-adjustment{
   width: calc(100%) !important
 }
+.app-content-layout{
+  min-height: 100vh !important;
+}

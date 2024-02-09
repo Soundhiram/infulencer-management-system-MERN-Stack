@@ -5,6 +5,8 @@ import { PrivateRoute } from './private-route';
 import { Dashboard } from '../dashboard';
 import { RoutingConstraints } from './constraints';
 import CombineModule from '../login/index';
+import InfluencerForm from '../Influencer-form/form';
+import InfluencerList from '../influencer-list/list';
 
 const AppRoutes: React.FC = () => {
   // Assuming your authentication logic is correct
@@ -26,6 +28,8 @@ const AppRoutes: React.FC = () => {
           element={<PrivateRoute isAuthenticated={isAuthenticated} />}
         >
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="influencerform" element={<InfluencerForm />} />
+          <Route path="influencerlist" element={<InfluencerList />}/>
 
           <Route path="*" element={<p>404 Not Found</p>} />
 

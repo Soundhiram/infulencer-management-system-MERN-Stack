@@ -11,7 +11,7 @@ const influencerRouter = express.Router();
 
 influencerRouter.get('/', getAllInfluencers);
 
-influencerRouter.post('/', createInfluencer);
+influencerRouter.post('/create', createInfluencer);
 
 influencerRouter.get('/:id', getInfluencerById);
 

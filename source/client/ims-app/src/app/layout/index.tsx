@@ -34,7 +34,7 @@ export const AppLayout: React.FC = () => {
           className="app-layout "
           style={{ paddingLeft: `${getLayoutGutter()}px` }}
         >
-          <div className={`app-content`}>
+          <div className={`app-content app-content-layout`}>
             <Content>
               <Outlet />
             </Content>

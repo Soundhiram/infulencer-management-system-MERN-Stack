@@ -3,7 +3,7 @@ import Influencer from './influencer.model';
 
 export const getAllInfluencers: RequestHandler = async (req, res) => {
   try {
-    const influencers = await Influencer.find();
+    const influencers = await Influencer.find({ archived: false }); 
     res.json(influencers);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -50,7 +50,7 @@ export const updateInfluencer: RequestHandler = async (req, res) => {
 
 export const deleteInfluencer: RequestHandler = async (req, res) => {
   try {
-    const deletedInfluencer = await Influencer.findByIdAndDelete(req.params.id);
+    const deletedInfluencer = await Influencer.findByIdAndUpdate(req.params.id,{ archived: true });
     if (!deletedInfluencer) {
       return res.status(404).json({ message: 'Influencer not found' });
     }
