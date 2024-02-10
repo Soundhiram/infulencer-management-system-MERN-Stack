@@ -5,7 +5,7 @@ export interface UserInterface extends Document {
   password: string;
   email: string;
   name: string;
-  archived:boolean;
+  archived: boolean;
 }
 
 const UserSchema: Schema = new Schema({
@@ -13,7 +13,7 @@ const UserSchema: Schema = new Schema({
   password: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   name: { type: String, required: true },
-  archived: { type: Boolean, default: false }, 
+  archived: { type: Boolean, default: false },
 });
 
 const User = mongoose.model<UserInterface>('User', UserSchema);

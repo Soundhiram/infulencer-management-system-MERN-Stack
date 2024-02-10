@@ -9,7 +9,12 @@ interface Props {
   initialValues: any;
 }
 
-const EditInfluencerModal: React.FC<Props> = ({ visible, onCancel, onOk, initialValues }) => {
+const EditInfluencerModal: React.FC<Props> = ({
+  visible,
+  onCancel,
+  onOk,
+  initialValues,
+}) => {
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<any[]>([]);
 
@@ -32,15 +37,19 @@ const EditInfluencerModal: React.FC<Props> = ({ visible, onCancel, onOk, initial
       visible={visible}
       onCancel={onCancel}
       onOk={() => {
-        form.validateFields().then(values => {
+        form.validateFields().then((values) => {
           onOk(values);
           form.resetFields();
-          setFileList([]); // Reset fileList after submitting the form
+          setFileList([]);
         });
       }}
     >
       <Form form={form} layout="vertical" initialValues={initialValues}>
-        <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please enter name' }]}>
+        <Form.Item
+          name="name"
+          label="Name"
+          rules={[{ required: true, message: 'Please enter name' }]}
+        >
           <Input />
         </Form.Item>
         <Form.Item name="socialMediaHandles" label="Social Media Handles">

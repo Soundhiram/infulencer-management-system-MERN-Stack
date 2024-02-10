@@ -7,9 +7,7 @@ export const NavPanel: React.FC = () => {
   return (
     <div style={{ position: 'fixed', bottom: 0, width: '100%' }}>
       <Menu mode="horizontal">
-        <Menu.Item onClick={() => setVisible(true)}>
-          {/* <SettingOutlined className="nav-icon mr-0" /> */}
-        </Menu.Item>
+        <Menu.Item onClick={() => setVisible(true)}></Menu.Item>
       </Menu>
       <Drawer
         title="Theme Config"
@@ -17,10 +15,7 @@ export const NavPanel: React.FC = () => {
         width={350}
         onClose={() => setVisible(false)}
         visible={visible}
-      >
-        {/* <ThemeConfigurator /> */}
-      </Drawer>
+      ></Drawer>
     </div>
   );
 };
-

@@ -30,7 +30,7 @@ const influencerSchema = new Schema<Influencer>({
   category: { type: String },
   contactInformation: { type: String },
   notes: String,
-  profileImageUrl: { type: Schema.Types.Mixed } 
+  profileImageUrl: { type: Schema.Types.Mixed },
 });
 
 export default model<Influencer>('Influencer', influencerSchema);

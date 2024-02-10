@@ -10,7 +10,7 @@ export const SideNav: React.FC<SideNavProps> = ({ navCollapsed }) => {
     <Sider
       className={`side-nav`}
       width={250}
-      style={{ position: 'fixed', height: '100vh', zIndex: 1 ,top:'62px'}}
+      style={{ position: 'fixed', height: '100vh', zIndex: 1, top: '62px' }}
       collapsed={navCollapsed}
     >
       <MenuContent type={'SIDE'} />

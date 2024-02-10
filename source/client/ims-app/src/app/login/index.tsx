@@ -1,5 +1,3 @@
-// index.tsx
-
 import React, { useState } from 'react';
 import LoginForm from './login';
 import SignupForm from './signup';
@@ -8,7 +6,7 @@ const CombineModule = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
 
   const toggleForm = () => {
-    setIsLoginForm(prevState => !prevState);
+    setIsLoginForm((prevState) => !prevState);
   };
 
   return (

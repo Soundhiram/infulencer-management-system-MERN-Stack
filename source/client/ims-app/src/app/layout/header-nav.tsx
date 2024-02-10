@@ -41,7 +41,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
         zIndex: 1,
         width: '100%',
         marginLeft: '-8px',
-        marginTop:'-10px'
+        marginTop: '-10px',
       }}
     >
       <div className={`app-header-wrapper ${isNavTop ? 'layout-top-nav' : ''}`}>

@@ -58,7 +58,10 @@ export const MenuContent: React.FC<MenuContentProps> = ({ type }) => {
       </Menu.Item>
 
       <Menu.Item key="form" style={{ paddingLeft: '35px' }}>
-        <Link to="/home/influencerform" className="icon-primary width-adjustment">
+        <Link
+          to="/home/influencerform"
+          className="icon-primary width-adjustment"
+        >
           <>
             <Icon type={FormOutlined} className="icon-primary" />
             <span className="color-primary side-nav-text">Influencer-Form</span>
@@ -67,7 +70,10 @@ export const MenuContent: React.FC<MenuContentProps> = ({ type }) => {
       </Menu.Item>
 
       <Menu.Item key="list" style={{ paddingLeft: '35px' }}>
-        <Link to="/home/influencerlist" className="icon-primary width-adjustment">
+        <Link
+          to="/home/influencerlist"
+          className="icon-primary width-adjustment"
+        >
           <>
             <Icon type={UnorderedListOutlined} className="icon-primary" />
             <span className="color-primary side-nav-text">Influencer-List</span>
@@ -75,7 +81,6 @@ export const MenuContent: React.FC<MenuContentProps> = ({ type }) => {
         </Link>
       </Menu.Item>
 
-      {/* Logout option */}
       <Menu.Item key="logout" style={{ paddingLeft: '35px' }}>
         <Icon type={LogoutOutlined} className="icon-primary" />
         <span className="color-primary side-nav-text" onClick={handleSignOut}>

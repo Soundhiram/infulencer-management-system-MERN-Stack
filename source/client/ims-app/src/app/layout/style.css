@@ -4,8 +4,7 @@
 }
 
 .header-bg {
-  background: transparent linear-gradient(90deg, #315b81 0%, #003463 100%) 0% 0%
-    no-repeat padding-box !important;
+  background: transparent linear-gradient(90deg, #315b81 0%, #003463 100%) 0% 0% no-repeat padding-box !important;
 }
 
 .header-dropdown-bg .ant-select-selector {
@@ -28,6 +27,7 @@
   color: #ffffff !important;
   font-weight: 600;
 }
+
 .header-dropdown-bg {
   min-width: 13rem;
 }
@@ -86,9 +86,11 @@
   height: 40px;
   width: 193px;
 }
-.width-adjustment{
+
+.width-adjustment {
   width: calc(100%) !important
 }
-.app-content-layout{
+
+.app-content-layout {
   min-height: 100vh !important;
 }
