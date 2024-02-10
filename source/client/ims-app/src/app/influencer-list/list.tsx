@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Table, Space, Modal, message, Input } from 'antd';
+import { Button, Table, Space, message, Input } from 'antd';
 import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-
 import axios from 'axios';
 import './style.less';
-import { useNavigate } from 'react-router-dom';
+import EditInfluencerModal from './EditInfluencerModal';
 
 interface Influencer {
   _id: string;
@@ -21,8 +20,7 @@ const InfluencerList: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [selectedInfluencer, setSelectedInfluencer] = useState<Influencer | null>(null);
   const [searchValue, setSearchValue] = useState<string>('');
-  const [,setFilteredInfluencers]= useState<Influencer[]>([]);
-  const navigate=useNavigate();
+  const [editingInfluencer, setEditingInfluencer] = useState<Influencer | null>(null);
 
   useEffect(() => {
     const fetchInfluencers = async () => {
@@ -38,9 +36,27 @@ const InfluencerList: React.FC = () => {
   }, []);
 
   const handleEdit = (influencer: Influencer) => {
-    // navigate('/influencerlist')
-    console.log('Edit influencer:', influencer);
-    // You can open a modal with a form to edit influencer details
+    setEditingInfluencer(influencer);
+    setVisible(true); // Open the edit modal
+  };
+
+  const handleEditModalCancel = () => {
+    setEditingInfluencer(null);
+    setVisible(false); // Close the edit modal
+  };
+
+  const handleEditModalOk = async (values: any) => {
+    try {
+      // Send a request to update influencer details
+      await axios.put(`http://localhost:3333/api/influencers/${editingInfluencer?._id}`, values);
+      // Update influencers state or refetch all influencers
+      message.success('Influencer details updated successfully');
+      setEditingInfluencer(null);
+      setVisible(false); // Close the edit modal
+    } catch (error) {
+      console.error('Error updating influencer details:', error);
+      message.error('Failed to update influencer details');
+    }
   };
 
   const handleDelete = async (influencer: Influencer) => {
@@ -54,28 +70,21 @@ const InfluencerList: React.FC = () => {
     }
   };
 
-  const handleView = (influencer: Influencer) => {
-    setSelectedInfluencer(influencer);
-    setVisible(true);
-  };
-
   const closeModal = () => {
     setVisible(false);
     setSelectedInfluencer(null);
   };
 
+  const handleView = (influencer: Influencer) => {
+    setSelectedInfluencer(influencer);
+    setVisible(true);
+  };
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setSearchValue(value);
-    const lowerCaseValue = value.toLowerCase();
-    const filtered = influencers.filter(influencer =>
-      influencer.name.toLowerCase().includes(lowerCaseValue) ||
-      influencer.socialMediaHandles.some(handle => handle.toLowerCase().includes(lowerCaseValue)) ||
-      influencer.category.toLowerCase().includes(lowerCaseValue) ||
-      influencer.contactInformation.toLowerCase().includes(lowerCaseValue)
-    );
-    setFilteredInfluencers(filtered);
   };
+
   const filteredInfluencers = influencers.filter(influencer =>
     influencer.name.toLowerCase().includes(searchValue.toLowerCase())
   );
@@ -86,12 +95,6 @@ const InfluencerList: React.FC = () => {
       dataIndex: 'name',
       key: 'name',
     },
-    // {
-    //   title: 'Social Media Handles',
-    //   dataIndex: 'socialMediaHandles',
-    //   key: 'socialMediaHandles',
-    //   render: (handles: string[]) => handles.join(', '),
-    // },
     {
       title: 'Followers',
       dataIndex: 'followers',
@@ -107,56 +110,34 @@ const InfluencerList: React.FC = () => {
       dataIndex: 'category',
       key: 'category',
     },
-    // {
-    //   title: 'Contact Information',
-    //   dataIndex: 'contactInformation',
-    //   key: 'contactInformation',
-    // },
     {
       title: 'Actions',
       key: 'actions',
       render: (text: string, record: Influencer) => (
         <Space size="middle">
-        <Button onClick={() => handleView(record)} icon={<EyeOutlined />} />
-        <Button onClick={() => handleEdit(record)} icon={<EditOutlined />} />
-        <Button onClick={() => handleDelete(record)} danger icon={<DeleteOutlined />} />
-      </Space>
+          <Button onClick={() => handleView(record)} icon={<EyeOutlined />} />
+          <Button onClick={() => handleEdit(record)} icon={<EditOutlined />} />
+          <Button onClick={() => handleDelete(record)} danger icon={<DeleteOutlined />} />
+        </Space>
       ),
     },
   ];
 
   return (
-
     <div>
-      <div className='serach-box'>
-
       <Input.Search
         placeholder="Search influencers"
-        className='serach-input'
         onChange={handleSearch}
-        style={{ width: 500, margin: 16, height:35 }}
+        style={{ width: 500, margin: 16 }}
       />
-      </div>
-      <Table style={{margin:10}} columns={columns} dataSource={influencers} rowKey="_id" />
+      <Table columns={columns} dataSource={filteredInfluencers} rowKey="_id" />
 
-      <Modal
-        title="Influencer Details"
+      <EditInfluencerModal
         visible={visible}
         onCancel={closeModal}
-        footer={null}
-      >
-        {/* Render influencer details in the modal */}
-        {selectedInfluencer && (
-          <div>
-            <p><strong>Name:</strong> {selectedInfluencer.name}</p>
-            <p><strong>Social Media Handles:</strong> {selectedInfluencer.socialMediaHandles.join(', ')}</p>
-            <p><strong>Followers:</strong> {selectedInfluencer.followers}</p>
-            <p><strong>Engagement Rate:</strong> {selectedInfluencer.engagementRate}</p>
-            <p><strong>Category:</strong> {selectedInfluencer.category}</p>
-            <p><strong>Contact Information:</strong> {selectedInfluencer.contactInformation}</p>
-          </div>
-        )}
-      </Modal>
+        onOk={handleEditModalOk}
+        initialValues={editingInfluencer}
+      />
     </div>
   );
 };
