@@ -4,6 +4,7 @@ import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import axios from 'axios';
 import './style.less';
+import { useNavigate } from 'react-router-dom';
 
 interface Influencer {
   _id: string;
@@ -21,7 +22,7 @@ const InfluencerList: React.FC = () => {
   const [selectedInfluencer, setSelectedInfluencer] = useState<Influencer | null>(null);
   const [searchValue, setSearchValue] = useState<string>('');
   const [,setFilteredInfluencers]= useState<Influencer[]>([]);
-
+  const navigate=useNavigate();
 
   useEffect(() => {
     const fetchInfluencers = async () => {
@@ -37,7 +38,7 @@ const InfluencerList: React.FC = () => {
   }, []);
 
   const handleEdit = (influencer: Influencer) => {
-    // Implement your edit logic here
+    // navigate('/influencerlist')
     console.log('Edit influencer:', influencer);
     // You can open a modal with a form to edit influencer details
   };

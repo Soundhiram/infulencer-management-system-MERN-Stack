@@ -30,7 +30,7 @@ const AppRoutes: React.FC = () => {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="influencerform" element={<InfluencerForm />} />
           <Route path="influencerlist" element={<InfluencerList />}/>
-
+          {/* <Route path='edit/influencerlist'  element={<InfluencerForm  />} /> */}
           <Route path="*" element={<p>404 Not Found</p>} />
 
         </Route>

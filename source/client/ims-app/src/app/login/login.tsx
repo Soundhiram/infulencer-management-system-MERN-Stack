@@ -4,9 +4,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Card, message } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import SignupForm from './signup';
-
+import './style.less';
 interface LoginFormProps {
   toggleForm: () => void;
 }
@@ -41,6 +39,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
   };
 
   return (
+    <div className='card-div-login'>
+
     <Card className="card-content-form">
       <h1 className="title">Log in</h1>
 
@@ -52,31 +52,39 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
         <Form.Item
           label="Username"
           name="username"
+          style={{fontWeight:500}}
           rules={[{ required: true, message: 'Please input your username!' }]}
         >
           <Input
             value={username}
+            placeholder='Username'
             onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Item>
         <Form.Item
           label="Password"
           name="password"
+          style={{fontWeight:500}}
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
           <Input.Password
             value={password}
+            placeholder='Password'
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Item>
         <Form.Item>
+          <div className='button-div'>
+
           <Button
+          className='button-auth'
             type="primary"
             htmlType="submit"
             loading={loading}
           >
             Log in
           </Button>
+          </div>
         </Form.Item>
       </Form>
 
@@ -84,18 +92,21 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       {/* Signup link */}
-      <p>
+     <div className='link-div'>
+     <p className='link-para'>
         Don't have an account?{' '}
         <span
-          style={{ cursor: 'pointer', color: 'blue' }}
+          style={{ cursor: 'pointer', color: 'red' }}
           onClick={onClickSignUp} // Call onClickSignUp function
         >
           Sign up
         </span>
       </p>
+     </div>
       
     
     </Card>
+    </div>
   );
 };
 

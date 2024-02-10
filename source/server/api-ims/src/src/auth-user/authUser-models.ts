@@ -5,7 +5,7 @@ export interface UserInterface extends Document {
   password: string;
   email: string;
   name: string;
-  mobileNumber: string;
+  archived:boolean;
 }
 
 const UserSchema: Schema = new Schema({
@@ -13,7 +13,6 @@ const UserSchema: Schema = new Schema({
   password: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   name: { type: String, required: true },
-  mobileNumber: { type: String, required: true },
   archived: { type: Boolean, default: false }, 
 });
 

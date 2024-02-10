@@ -125,7 +125,7 @@ const InfluencerForm: React.FC = () => {
         <Col span={12}>
           
      <Card className='upload-card'>
-     <Form.Item className='uplode-photo-profile' label="Profile Image URL" name="profile_image_url">
+     <Form.Item className='uplode-photo-profile' label="Profile Image URL" name="profileImageUrl">
         <Upload onChange={handleUpload} showUploadList={false} beforeUpload={() => false}>
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>

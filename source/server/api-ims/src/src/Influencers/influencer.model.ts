@@ -1,5 +1,14 @@
 import { Schema, model, Document } from 'mongoose';
 
+interface FileInfo {
+  bucketName?: string;
+  contentType?: string;
+  fullPath?: string;
+  name?: string;
+  publicUrl?: string;
+  size?: number;
+}
+
 interface Influencer extends Document {
   name: string;
   socialMediaHandles: string[];
@@ -8,12 +17,12 @@ interface Influencer extends Document {
   category: string;
   contactInformation: string;
   notes?: string;
-  profileImageUrl?: string;
-  archived:boolean;
+  profileImageUrl?: FileInfo;
+  archived: boolean;
 }
 
 const influencerSchema = new Schema<Influencer>({
-  archived:{type: Boolean, default: false},
+  archived: { type: Boolean, default: false },
   name: { type: String },
   socialMediaHandles: [String],
   followers: { type: Number },
@@ -21,7 +30,7 @@ const influencerSchema = new Schema<Influencer>({
   category: { type: String },
   contactInformation: { type: String },
   notes: String,
-  profileImageUrl: String,
+  profileImageUrl: { type: Schema.Types.Mixed } 
 });
 
 export default model<Influencer>('Influencer', influencerSchema);
