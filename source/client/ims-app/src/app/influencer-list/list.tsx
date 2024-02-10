@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Table, Space, Modal, message, Input, Form } from 'antd';
+import { Button, Table, Space, Input, Form, message, Modal } from 'antd';
 import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './style.less';
 import { useNavigate } from 'react-router-dom';
 import EditInfluencerModal from './EditInfluencerModal';
+import { Influencer } from '../../assets/influencers';
+import DetailModal from './detail-influencer-model';
 
-interface Influencer {
-  _id: string;
-  name: string;
-  socialMediaHandles: string[];
-  followers: number;
-  engagementRate: number;
-  category: string;
-  contactInformation: string;
-}
+const { confirm } = Modal;
 
 const InfluencerList: React.FC = () => {
   const [influencers, setInfluencers] = useState<Influencer[]>([]);
@@ -67,6 +61,21 @@ const InfluencerList: React.FC = () => {
       console.error('Error updating influencer details:', error);
       message.error('Failed to update influencer details');
     }
+  };
+
+  const showDeleteConfirm = (influencer: Influencer) => {
+    confirm({
+      title: `Are you sure you want to delete ${influencer.name}?`,
+      icon: <DeleteOutlined />,
+      content: 'This action cannot be undone.',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        handleDelete(influencer);
+      },
+      onCancel() {''},
+    });
   };
 
   const handleDelete = async (influencer: Influencer) => {
@@ -132,7 +141,7 @@ const InfluencerList: React.FC = () => {
           <Button onClick={() => handleView(record)} icon={<EyeOutlined />} />
           <Button onClick={() => handleEdit(record)} icon={<EditOutlined />} />
           <Button
-            onClick={() => handleDelete(record)}
+            onClick={() => showDeleteConfirm(record)}
             danger
             icon={<DeleteOutlined />}
           />
@@ -143,42 +152,20 @@ const InfluencerList: React.FC = () => {
 
   return (
     <div>
-      <Input.Search
-        placeholder="Search influencers"
-        onChange={handleSearch}
-        style={{ width: 500, margin: 16 }}
-      />
+      <div className="search-box">
+        <Input.Search
+          placeholder="Search influencers"
+          onChange={handleSearch}
+          style={{ width: 500, margin: 16 }}
+        />
+      </div>
       <Table columns={columns} dataSource={filteredInfluencers} rowKey="_id" />
 
-      <Modal
-        title="Influencer Details"
+      <DetailModal
         visible={visible}
-        onCancel={closeModal}
-        footer={null}
-      >
-        {selectedInfluencer && (
-          <div>
-            <p>
-              <strong>Name:</strong> {selectedInfluencer.name}
-            </p>
-            <p>
-              <strong>Followers:</strong> {selectedInfluencer.followers}
-            </p>
-            <p>
-              <strong>Engagement Rate:</strong>{' '}
-              {selectedInfluencer.engagementRate}
-            </p>
-            <p>
-              <strong>Category:</strong> {selectedInfluencer.category}
-            </p>
-            <p>
-              <strong>Contact Information:</strong>{' '}
-              {selectedInfluencer.contactInformation}
-            </p>
-          </div>
-        )}
-      </Modal>
-
+        closeModal={closeModal}
+        selectedInfluencer={selectedInfluencer || undefined}
+      />
       <EditInfluencerModal
         visible={!!editingInfluencer}
         onCancel={handleEditModalCancel}

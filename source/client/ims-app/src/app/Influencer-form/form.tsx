@@ -19,6 +19,8 @@ const { Option } = Select;
 
 const InfluencerForm: React.FC = () => {
   const [form] = Form.useForm();
+  const [fileList, setFileList] = useState<any[]>([]); 
+
 
   const onFinish = async (values: any) => {
     console.log('Received values:', values);
@@ -46,11 +48,13 @@ const InfluencerForm: React.FC = () => {
       console.log(info.file, info.fileList);
     }
     if (info.file.status === 'done') {
+      setFileList([info.file]);
       message.success(`${info.file.name} file uploaded successfully`);
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} file upload failed.`);
     }
   };
+  
 
   return (
     <Card className="form-card" title="New Influencer" bordered={false}>
@@ -90,7 +94,7 @@ const InfluencerForm: React.FC = () => {
                 },
               ]}
             >
-              <Input.TextArea />
+              <Select mode="tags" />
             </Form.Item>
 
             <Form.Item
@@ -166,11 +170,12 @@ const InfluencerForm: React.FC = () => {
                 name="profileImageUrl"
               >
                 <Upload
+                  listType="picture-circle"
                   onChange={handleUpload}
-                  showUploadList={false}
+                  showUploadList={true}
                   beforeUpload={() => false}
                 >
-                  <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                  <Button className='button-upload' type='link' icon={<UploadOutlined />}>Click to Upload</Button>
                 </Upload>
               </Form.Item>
             </Card>

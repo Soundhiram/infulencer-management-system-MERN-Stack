@@ -4,7 +4,7 @@
 }
 
 .header-bg {
-  background: transparent linear-gradient(90deg, #315b81 0%, #003463 100%) 0% 0% no-repeat padding-box !important;
+  background: transparent linear-gradient(90deg, hwb(240 27% 73%) 0%, #585959 100%) 0% 0% no-repeat padding-box !important;
 }
 
 .header-dropdown-bg .ant-select-selector {
@@ -93,4 +93,11 @@
 
 .app-content-layout {
   min-height: 100vh !important;
+}
+
+.nav-icon{
+  display: flex;
+  margin-left: 135px;
+  margin-top: 15px;
+  color: white;
 }

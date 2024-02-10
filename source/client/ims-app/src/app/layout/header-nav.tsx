@@ -1,8 +1,6 @@
 import './style.css';
-
 import { MenuOutlined } from '@ant-design/icons';
 import { useState } from 'react';
-
 import { Layout } from 'antd';
 
 const { Header } = Layout;
@@ -21,16 +19,16 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
   const [isNavTop, setIsNavTop] = useState<boolean>(false);
 
   const mode = () => {
-    return 'light';
+    return 'light'; 
   };
 
   const navMode = mode();
+
   const getNavWidth = () => {
     if (isMobile) {
       return '0px';
     }
-    if (navCollapsed) return `80px`;
-    else return `250px`;
+    return navCollapsed ? '80px' : '250px';
   };
 
   return (
@@ -48,17 +46,13 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
         <div className="nav" style={{ width: `calc(100% - ${getNavWidth()})` }}>
           <div className="nav-left">
             <ul className="ant-menu ant-menu-root ant-menu-horizontal">
-              {isNavTop && !isMobile ? null : (
-                <li
+              {!isNavTop && !isMobile && (
+                <span
                   className="ant-menu-item ant-menu-item-only-child"
-                  onClick={() => setNavCollapsed((prop) => !prop)}
+                  onClick={() => setNavCollapsed(!navCollapsed)}
                 >
-                  {navCollapsed || isMobile ? (
-                    <MenuOutlined className="nav-icon" />
-                  ) : (
-                    <MenuOutlined className="nav-icon" />
-                  )}
-                </li>
+                  <MenuOutlined className="nav-icon" style={{ fontSize: '24px' }} />
+                </span>
               )}
             </ul>
           </div>

@@ -31,3 +31,9 @@
     background-color: #1b91d3;
     text-align: center;
 }
+.button-upload{
+    font-size: 10px;
+    display: grid;
+    align-content: center;
+    margin-left: 5px;
+}
