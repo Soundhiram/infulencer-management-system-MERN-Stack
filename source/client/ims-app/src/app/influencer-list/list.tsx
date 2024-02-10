@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Table, Space, message, Input } from 'antd';
+import { Button, Table, Space, Modal, message, Input, Form } from 'antd';
 import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './style.less';
+import { useNavigate } from 'react-router-dom';
 import EditInfluencerModal from './EditInfluencerModal';
 
 interface Influencer {
@@ -21,6 +22,8 @@ const InfluencerList: React.FC = () => {
   const [selectedInfluencer, setSelectedInfluencer] = useState<Influencer | null>(null);
   const [searchValue, setSearchValue] = useState<string>('');
   const [editingInfluencer, setEditingInfluencer] = useState<Influencer | null>(null);
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchInfluencers = async () => {
@@ -37,22 +40,23 @@ const InfluencerList: React.FC = () => {
 
   const handleEdit = (influencer: Influencer) => {
     setEditingInfluencer(influencer);
-    setVisible(true); // Open the edit modal
+    form.setFieldsValue(influencer);
   };
 
   const handleEditModalCancel = () => {
     setEditingInfluencer(null);
-    setVisible(false); // Close the edit modal
+    form.resetFields();
   };
 
-  const handleEditModalOk = async (values: any) => {
+  const handleEditModalOk = async () => {
     try {
+      const values = await form.validateFields();
       // Send a request to update influencer details
       await axios.put(`http://localhost:3333/api/influencers/${editingInfluencer?._id}`, values);
       // Update influencers state or refetch all influencers
       message.success('Influencer details updated successfully');
       setEditingInfluencer(null);
-      setVisible(false); // Close the edit modal
+      form.resetFields();
     } catch (error) {
       console.error('Error updating influencer details:', error);
       message.error('Failed to update influencer details');
@@ -132,11 +136,28 @@ const InfluencerList: React.FC = () => {
       />
       <Table columns={columns} dataSource={filteredInfluencers} rowKey="_id" />
 
-      <EditInfluencerModal
+      <Modal
+        title="Influencer Details"
         visible={visible}
         onCancel={closeModal}
+        footer={null}
+      >
+        {selectedInfluencer && (
+          <div>
+            <p><strong>Name:</strong> {selectedInfluencer.name}</p>
+            <p><strong>Followers:</strong> {selectedInfluencer.followers}</p>
+            <p><strong>Engagement Rate:</strong> {selectedInfluencer.engagementRate}</p>
+            <p><strong>Category:</strong> {selectedInfluencer.category}</p>
+            <p><strong>Contact Information:</strong> {selectedInfluencer.contactInformation}</p>
+          </div>
+        )}
+      </Modal>
+
+      <EditInfluencerModal
+        visible={!!editingInfluencer}
+        onCancel={handleEditModalCancel}
         onOk={handleEditModalOk}
-        initialValues={editingInfluencer}
+        initialValues={editingInfluencer || undefined}
       />
     </div>
   );

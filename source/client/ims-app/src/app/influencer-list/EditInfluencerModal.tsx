@@ -1,6 +1,5 @@
-// EditInfluencerModal.tsx
-import React from 'react';
-import { Modal, Form, Input, Upload, Button } from 'antd';
+import React, { useState } from 'react';
+import { Modal, Form, Input, Upload, Button, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 interface Props {
@@ -12,6 +11,20 @@ interface Props {
 
 const EditInfluencerModal: React.FC<Props> = ({ visible, onCancel, onOk, initialValues }) => {
   const [form] = Form.useForm();
+  const [fileList, setFileList] = useState<any[]>([]);
+
+  const handleBeforeUpload = (file: any) => {
+    const isImage = file.type.startsWith('image/');
+    if (!isImage) {
+      message.error('You can only upload image files!');
+      return Upload.LIST_IGNORE;
+    }
+    return true;
+  };
+
+  const handleFileChange = ({ fileList }: any) => {
+    setFileList(fileList);
+  };
 
   return (
     <Modal
@@ -22,6 +35,7 @@ const EditInfluencerModal: React.FC<Props> = ({ visible, onCancel, onOk, initial
         form.validateFields().then(values => {
           onOk(values);
           form.resetFields();
+          setFileList([]); // Reset fileList after submitting the form
         });
       }}
     >
@@ -45,7 +59,13 @@ const EditInfluencerModal: React.FC<Props> = ({ visible, onCancel, onOk, initial
           <Input.TextArea rows={4} />
         </Form.Item>
         <Form.Item name="profileImageUrl" label="Profile Image URL">
-          <Upload maxCount={1}>
+          <Upload
+            beforeUpload={handleBeforeUpload}
+            onChange={handleFileChange}
+            fileList={fileList}
+            maxCount={1}
+            listType="picture"
+          >
             <Button icon={<UploadOutlined />}>Upload Image</Button>
           </Upload>
         </Form.Item>
