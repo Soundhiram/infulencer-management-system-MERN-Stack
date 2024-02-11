@@ -23,7 +23,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ visible, closeModal, selected
         <div>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: 16 }}>
             {selectedInfluencer.profileImageUrl && (
-              <Avatar src={selectedInfluencer.profileImageUrl.uid} size={64} />
+              <Avatar src={selectedInfluencer.profileImageUrl.uid} />
             )}
             <div style={{ marginLeft: 16 }}>
               <Title level={4}>{selectedInfluencer.name}</Title>

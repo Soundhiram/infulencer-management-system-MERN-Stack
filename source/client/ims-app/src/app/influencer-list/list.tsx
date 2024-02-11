@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Table, Space, Input, Form, message, Modal } from 'antd';
+import { Button, Table, Space, Input, Form, message, Modal, Spin } from 'antd';
 import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './style.less';
@@ -13,22 +13,19 @@ const { confirm } = Modal;
 const InfluencerList: React.FC = () => {
   const [influencers, setInfluencers] = useState<Influencer[]>([]);
   const [visible, setVisible] = useState<boolean>(false);
-  const [selectedInfluencer, setSelectedInfluencer] =
-    useState<Influencer | null>(null);
+  const [selectedInfluencer, setSelectedInfluencer] = useState<Influencer | null>(null);
   const [searchValue, setSearchValue] = useState<string>('');
-  const [editingInfluencer, setEditingInfluencer] = useState<Influencer | null>(
-    null
-  );
+  const [editingInfluencer, setEditingInfluencer] = useState<Influencer | null>(null);
+  const [loading, setLoading] = useState<boolean>(true); // Initialize loading as true
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchInfluencers = async () => {
       try {
-        const response = await axios.get<Influencer[]>(
-          'http://localhost:3333/api/influencers/'
-        );
+        const response = await axios.get<Influencer[]>('http://localhost:3333/api/influencers/');
         setInfluencers(response.data);
+        setLoading(false); // Set loading to false after data fetching is done
       } catch (error) {
         console.error('Error fetching influencers:', error);
       }
@@ -159,7 +156,13 @@ const InfluencerList: React.FC = () => {
           style={{ width: 500, margin: 16 }}
         />
       </div>
-      <Table columns={columns} dataSource={filteredInfluencers} rowKey="_id" />
+      {loading ? ( // Display loading icon if loading
+        <div style={{ textAlign: 'center', margin: '50px 0' }}>
+          <Spin />
+        </div>
+      ) : (
+        <Table columns={columns} dataSource={filteredInfluencers} rowKey="_id" />
+      )}
 
       <DetailModal
         visible={visible}

@@ -1,30 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Row, Col, Card, Empty, Typography, Divider, Avatar } from 'antd';
+import { Row, Col, Card, Empty, Typography, Divider, Avatar, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import { Influencer } from '../../assets/influencers';
 
 const { Title, Text, Paragraph } = Typography;
 
 const DashInfluencer: React.FC = () => {
   const [influencers, setInfluencers] = useState<Influencer[]>([]);
+  const [loading, setLoading] = useState<boolean>(true); // State for loading
 
   useEffect(() => {
     axios
       .get<Influencer[]>('http://localhost:3333/api/influencers/')
       .then((response) => {
         setInfluencers(response.data);
+        setLoading(false); // Set loading to false when data is fetched
       })
       .catch((error) => {
         console.error('Error fetching influencers:', error);
+        setLoading(false); // Set loading to false on error as well
       });
   }, []);
 
   return (
     <div className="card cursor-none">
-      {influencers.length > 0 ? (
-        <Row gutter={[16, 16]} justify="start"> 
+      {loading ? ( // Show loading icon if loading is true
+        <div style={{ textAlign: 'center', margin: '50px 0' }}>
+          <Spin />
+        </div>       
+      ) : influencers.length > 0 ? (
+        <Row gutter={[16, 16]} justify="start">
           {influencers.slice(0, 4).map((influencer) => (
-            <Col span={6} key={influencer._id}> 
+            <Col span={6} key={influencer._id}>
               <Card className="influencer-card" hoverable>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: 16 }}>
                   <Avatar
@@ -38,7 +46,7 @@ const DashInfluencer: React.FC = () => {
                 </div>
                 <Divider />
                 <div className="data-para">
-                  <Paragraph  className='para'>
+                  <Paragraph className='para'>
                     <strong>Followers:</strong> {influencer.followers}
                   </Paragraph>
                   <Paragraph>
