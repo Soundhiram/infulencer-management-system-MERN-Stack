@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from './private-route';
-import { Dashboard } from '../dashboard';
 import { RoutingConstraints } from './constraints';
 import CombineModule from '../login/index';
 import InfluencerForm from '../Influencer-form/form';
 import InfluencerList from '../influencer-list/list';
+import { Dashboard } from '../dashboard';
 
 const AppRoutes: React.FC = () => {
   const isAuthenticated = !!localStorage.getItem('token');
