@@ -16,7 +16,7 @@ const InfluencerList: React.FC = () => {
   const [selectedInfluencer, setSelectedInfluencer] = useState<Influencer | null>(null);
   const [searchValue, setSearchValue] = useState<string>('');
   const [editingInfluencer, setEditingInfluencer] = useState<Influencer | null>(null);
-  const [loading, setLoading] = useState<boolean>(true); // Initialize loading as true
+  const [loading, setLoading] = useState<boolean>(true); 
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ const InfluencerList: React.FC = () => {
       try {
         const response = await axios.get<Influencer[]>('http://localhost:3333/api/influencers/');
         setInfluencers(response.data);
-        setLoading(false); // Set loading to false after data fetching is done
+        setLoading(false); 
       } catch (error) {
         console.error('Error fetching influencers:', error);
       }
@@ -156,7 +156,7 @@ const InfluencerList: React.FC = () => {
           style={{ width: 500, margin: 16 }}
         />
       </div>
-      {loading ? ( // Display loading icon if loading
+      {loading ? ( 
         <div style={{ textAlign: 'center', margin: '50px 0' }}>
           <Spin />
         </div>

@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Row, Col, Card, Empty, Typography, Divider, Avatar, Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
 import { Influencer } from '../../assets/influencers';
 
 const { Title, Text, Paragraph } = Typography;
 
 const DashInfluencer: React.FC = () => {
   const [influencers, setInfluencers] = useState<Influencer[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); // State for loading
+  const [loading, setLoading] = useState<boolean>(true);  
 
   useEffect(() => {
     axios
       .get<Influencer[]>('http://localhost:3333/api/influencers/')
       .then((response) => {
         setInfluencers(response.data);
-        setLoading(false); // Set loading to false when data is fetched
+        setLoading(false); 
       })
       .catch((error) => {
         console.error('Error fetching influencers:', error);
-        setLoading(false); // Set loading to false on error as well
+        setLoading(false); 
       });
   }, []);
 
   return (
     <div className="card cursor-none">
-      {loading ? ( // Show loading icon if loading is true
+      {loading ? ( 
         <div style={{ textAlign: 'center', margin: '50px 0' }}>
           <Spin />
         </div>       
