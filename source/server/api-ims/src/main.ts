@@ -9,6 +9,7 @@ import * as path from 'path';
 import cors from 'cors';
 import authRoutes from './src/auth-user/authUser.routes';
 import influencerRouter from './src/Influencers/influencer.router';
+import feedbackRouter from './src/feedback/feedback-router';
 
 mongoose.connect(
   'mongodb+srv://jamster:Soundar@jamsterapp.cuxjnde.mongodb.net/influencer-management'
@@ -20,6 +21,7 @@ app.use(cors());
 
 app.use('/api/users', authRoutes);
 app.use('/api/influencers', influencerRouter);
+app.use('/api/feedback', feedbackRouter)
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 

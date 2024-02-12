@@ -20,3 +20,12 @@ export interface Influencer {
   profileImageUrl?: FileInfo;
   archived: boolean;
 }
+
+export interface Feedback{
+  fullName: string;
+  email: string;
+  feedback: string;
+  recomended: boolean;
+  rating: number;
+ 
+}

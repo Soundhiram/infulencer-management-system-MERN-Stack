@@ -1,0 +1,98 @@
+@import url(../../style.less);
+
+.share-feedback-content {
+  background: var(--white-bg) url(/assets/images/contact-feedback-vector.png) 0/100%
+    no-repeat;
+  background-position-y: -115px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.feedback-form-content {
+  #feedback-form_name,
+  #feedback-form_email {
+    height: 39px;
+  }
+}
+
+.s-feedback-paragraph {
+  width: 70%;
+  text-align: unset !important;
+}
+
+.feedback-input-content {
+  width: 713px;
+  padding: 44px 70px 37px 70px;
+  background: #5c5e5e;
+}
+
+.recomment-select {
+  .ant-form-item-label > label {
+    .content-title-text();
+    color: var(--text-white-color);
+  }
+  .ant-form-item-label {
+    padding: 0px !important;
+  }
+  .select-text {
+    .content-title-text();
+    color: var(--text-white-color);
+    font-weight: 400;
+  }
+}
+
+.select-text {
+  .ant-radio-inner {
+    border-width: 2.3px !important;
+    border-color: #fff !important;
+    background-color: #000000 !important;
+  }
+}
+
+.circle-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #262323 !important;
+}
+
+.feedback-submit-btn {
+  font-size: 14px !important;
+  width: 270px;
+  height: 43px;
+  padding: 15px 118px 14px 117px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 150px;
+  background-color: #000000 !important;
+}
+.d-flex{
+  display: flex;
+  justify-content: space-between;
+}
+.radio-button{
+  display: block;
+
+}
+
+@media (max-width: 1366px) {
+  .s-feedback-paragraph {
+    margin-top: 3rem;
+  }
+}
+@media (max-width: 820px) {
+  .s-feedback-paragraph {
+    margin-top: 2rem;
+  }
+  .s-feedback-paragraph {
+    width: 80%;
+  }
+  .share-feedback-content {
+    background-position-y: -60px;
+  }
+}

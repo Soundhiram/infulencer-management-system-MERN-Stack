@@ -84,6 +84,17 @@ export const MenuContent: React.FC<MenuContentProps> = ({ type }) => {
             </>
           </Link>
         </Menu.Item>
+        <Menu.Item key="ShareFeedback" style={{ paddingLeft: '35px' }}>
+          <Link
+            to="/home/sharefeedback"
+            className="icon-primary width-adjustment"
+          >
+            <>
+              <Icon type={UnorderedListOutlined} className="icon-primary" />
+              <span className="color-primary side-nav-text">Feedback</span>
+            </>
+          </Link>
+        </Menu.Item>
 
         <Menu.Item key="logout" style={{ paddingLeft: '35px' }}>
           <Icon type={LogoutOutlined} className="icon-primary" />
