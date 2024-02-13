@@ -4,6 +4,7 @@ import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './style.less';
 import { useNavigate } from 'react-router-dom';
+import EditInfluencerModal from './EditInfluencerModal';
 import { Influencer } from '../../assets/influencers';
 import DetailModal from './detail-influencer-model';
 
@@ -38,9 +39,26 @@ const InfluencerList: React.FC = () => {
     form.setFieldsValue(influencer);
   };
 
-  
+  const handleEditModalCancel = () => {
+    setEditingInfluencer(null);
+    form.resetFields();
+  };
 
- 
+  const handleEditModalOk = async () => {
+    try {
+      const values = await form.validateFields();
+      await axios.put(
+        `http://localhost:3333/api/influencers/${editingInfluencer?._id}`,
+        values
+      );
+      message.success('Influencer details updated successfully');
+      setEditingInfluencer(null);
+      form.resetFields();
+    } catch (error) {
+      console.error('Error updating influencer details:', error);
+      message.error('Failed to update influencer details');
+    }
+  };
 
   const showDeleteConfirm = (influencer: Influencer) => {
     confirm({
@@ -151,7 +169,12 @@ const InfluencerList: React.FC = () => {
         closeModal={closeModal}
         selectedInfluencer={selectedInfluencer || undefined}
       />
-     
+      <EditInfluencerModal
+        visible={!!editingInfluencer}
+        onCancel={handleEditModalCancel}
+        onOk={handleEditModalOk}
+        initialValues={editingInfluencer || undefined}
+      />
     </div>
   );
 };
